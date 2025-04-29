@@ -35,6 +35,25 @@ sprint:
   pop edx
   ret
 
+; prints a string with line feed appendix
+sprintlf:
+  call sprint
+
+  push eax     ; preserve the eax pointer in the stack.
+               ; little-endian representation here
+
+  mov eax, 0Ah ; assign the null terminator to eax.
+               ; because eax is four bytes and little-endian, the content is:
+               ; 0A 00 00 00
+  
+  push eax     ; push 0A 00 00 00 to the stack
+
+  mov eax, esp ; assign the pointer to 0A (esp is the top of the stack) to eax
+  call sprint  ; print the line feed character
+  pop eax      ; remove the line feed character from the stack
+  pop eax      ; retrieve the original eax value
+  ret
+
 ; Gracefully exit the program
 quit:
   mov ebx, 0 ; no errors arg

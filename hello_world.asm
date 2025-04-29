@@ -4,8 +4,8 @@
 
 
 SECTION .data
-msg1 db 'Hello, World from assembly!', 0Ah
-msg2 db 'These are printed via our little string print library', 0Ah
+msg1 db 'Hello, World from assembly!', 0h
+  msg2 db 'These are printed via our little string print library', 0h
 
 SECTION .text
 global _start
@@ -13,9 +13,9 @@ global _start
 _start:
 
   mov eax, msg1
-  call sprint
+  call sprintlf
 
   mov eax, msg2
-  call sprint
+  call sprintlf
 
   call quit
